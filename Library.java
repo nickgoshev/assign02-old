@@ -142,7 +142,8 @@ public class Library {
 		
 		for (int i=0; i<library.size(); i++) {
 			LibraryBook currentBook = library.get(i);
-			
+			if (currentBook.getHolder() == null)
+				continue;
 			if (currentBook.getHolder().equals(holder))
 				holderBooks.add(currentBook);
 				
@@ -170,6 +171,8 @@ public class Library {
 	 */
 	public boolean checkout(long isbn, String holder, int month, int day, int year) {
 		
+		if(library.size() < 1)
+			return false;
 		
 		LibraryBook currentBook = null;
 		for (int i = 0; i<library.size();i++) {
@@ -179,7 +182,7 @@ public class Library {
 				break;
 		}
 		
-		if (currentBook.getHolder().equals(null)) {
+		if (currentBook.getHolder() == (null)) {
 			currentBook.checkOut(holder, new GregorianCalendar(year, month, day));
 			return true;
 		}
@@ -200,7 +203,9 @@ public class Library {
 	 * @param isbn - ISBN of the library book to be checked in
 	 */
 	public boolean checkin(long isbn) {
-		// FILL IN -- do not return false unless appropriate
+
+		if(library.size() < 1)
+			return false;
 		
 		LibraryBook currentBook = null;
 		for (int i = 0; i<library.size();i++) {
@@ -231,7 +236,22 @@ public class Library {
 	 * @param holder - holder of the library books to be checked in
 	 */
 	public boolean checkin(String holder) {
-		// FILL IN -- do not return false unless appropriate
+		
+		if(library.size() < 1)
+			return false;
+		
+		LibraryBook currentBook = null;
+		for (int i = 0; i<library.size();i++) {
+			currentBook = library.get(i);
+			
+			if (currentBook.getHolder() == null)
+				continue;
+			
+			if (currentBook.getHolder() == holder)
+				currentBook.checkIn();
+				return true;
+		}
+		
 		return false;
 	}
 }

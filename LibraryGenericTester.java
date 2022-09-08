@@ -94,10 +94,51 @@ public class LibraryGenericTester {
 	}
 	
 	@Test
-	public void testHolderType() {
+	public void testHolderString() {
 		LibraryBookGeneric<String> book = new LibraryBookGeneric<String>(12, "Author Name", "Title");
 		
 		book.checkOut("james", new GregorianCalendar(06,06,06));
 		assertTrue(book.getHolder() instanceof String);
+	}
+	
+	@Test
+	public void testHolderPhoneNumber() {
+		LibraryBookGeneric<PhoneNumber> book = new LibraryBookGeneric<PhoneNumber>(12, "Author Name", "Title");
+		
+		book.checkOut(new PhoneNumber("8017388377"), new GregorianCalendar(06,06,06));
+		assertTrue(book.getHolder() instanceof PhoneNumber);
+	}
+	
+	@Test
+	public void testIsbnSort()
+	{
+		ArrayList<LibraryBookGeneric<String>> result = nameLib.getInventoryList();
+		ArrayList<LibraryBookGeneric<String>> expected = new ArrayList<LibraryBookGeneric<String>>();
+		
+		expected.add(new LibraryBookGeneric<String>(9780330351690L, "Jon Krakauer", "Into the Wild"));
+		expected.add(new LibraryBookGeneric<String>(9780374292799L, "Thomas L. Friedman", "The World is Flat"));
+		expected.add(new LibraryBookGeneric<String>(9780446580342L, "David Baldacci", "Simple Genius"));
+		
+		assertEquals(expected, result);
+	}
+	
+	@Test
+	public void testDueDateSort()
+	{	
+		ArrayList<LibraryBookGeneric<String>> libraryList = nameLib.getInventoryList();
+		
+		libraryList.get(0).checkOut("Steve", new GregorianCalendar(2022, 8, 6));
+		libraryList.get(1).checkOut("Frank", new GregorianCalendar(2022, 8, 8));
+		libraryList.get(2).checkOut("Alexa", new GregorianCalendar(2022, 8, 7));
+		
+		ArrayList<LibraryBookGeneric<String>> result = nameLib.getOverdueList(8, 6, 2022);
+		
+		ArrayList<LibraryBookGeneric<String>> expected = new ArrayList<LibraryBookGeneric<String>>();
+		
+		expected.add(new LibraryBookGeneric<String>(9780446580342L, "David Baldacci", "Simple Genius"));
+		expected.add(new LibraryBookGeneric<String>(9780374292799L, "Thomas L. Friedman", "The World is Flat"));
+		
+		
+		assertEquals(expected, result);
 	}
 }

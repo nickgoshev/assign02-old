@@ -34,7 +34,6 @@ public class LibraryTester {
 
 		mediumLib = new Library();
 		mediumLib.addAll("src/assign02/Mushroom_Publishing.txt");
-		// FILL IN -- extend this tester to consider a medium-size library
 	}
 
 	@Test
@@ -95,6 +94,41 @@ public class LibraryTester {
 	@Test
 	public void testSmallLibraryCheckinHolder() {
 		assertFalse(smallLib.checkin("Jane Doe"));
+	}
+	
+	//Medium Library Tests
+	
+	@Test
+	public void testMediumLibraryLookupISBN() {
+		assertNull(mediumLib.lookup(9781843190363L));
+	}
+	
+	@Test
+	public void testMediumLibraryLookupHolder() {
+		mediumLib.checkout(9781843190073L, "Jane Doe", 1, 1, 2008);
+		ArrayList<LibraryBook> booksCheckedOut = mediumLib.lookup("Jane Doe");
+		
+		assertNotNull(booksCheckedOut);
+		assertEquals(1, booksCheckedOut.size());
+		assertEquals(new Book(9781843190073L, "Jen Alexander", "The Coming of the Third"), booksCheckedOut.get(0));
+		assertEquals("Jane Doe", booksCheckedOut.get(0).getHolder());
+	}
+
+	@Test
+	public void testMediumLibraryCheckout() {
+		
+		assertTrue(mediumLib.checkout(9781843190363L, "Jane Doe", 1, 1, 2008));
+	}
+
+	@Test
+	public void testMediumLibraryCheckinISBN() {
+		mediumLib.checkout(9781843190363L, "Jane Doe", 1, 1, 2008);
+		assertTrue(mediumLib.checkin(9781843190363L));
+	}
+
+	@Test
+	public void testMediumLibraryCheckinHolder() {
+		assertFalse(mediumLib.checkin("Jane Doe"));
 	}
 	
 	//Book Tests
