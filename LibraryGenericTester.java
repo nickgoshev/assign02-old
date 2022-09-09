@@ -141,4 +141,18 @@ public class LibraryGenericTester {
 		
 		assertEquals(expected, result);
 	}
+	
+	@Test
+	public void testTitleSort() {
+		ArrayList<LibraryBookGeneric<String>> result = nameLib.getOrderedByTitle();
+		ArrayList<LibraryBookGeneric<String>> expected = new ArrayList<LibraryBookGeneric<String>>();
+		
+		expected.add(new LibraryBookGeneric<String>(9780330351690L, "Jon Krakauer", "Into the Wild"));
+		expected.add(new LibraryBookGeneric<String>(9780446580342L, "David Baldacci", "Simple Genius"));
+		expected.add(new LibraryBookGeneric<String>(9780374292799L, "Thomas L. Friedman", "The World is Flat"));
+		
+		assertEquals(expected, result);
+	}
 }
+
+

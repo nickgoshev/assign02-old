@@ -313,7 +313,14 @@ public class LibraryGeneric<Type> {
 	public ArrayList<LibraryBookGeneric<Type>> getOrderedByTitle() {
 		// FILL IN -- do not return null
 		// (Optional: Try using a lambda expression here instead of creating a new OrderByTitle class.)
-		return null;
+		ArrayList<LibraryBookGeneric<Type>> libraryCopy = new ArrayList<LibraryBookGeneric<Type>>();
+		libraryCopy.addAll(library);
+
+		OrderByTitle comparator = new OrderByTitle();
+
+		sort(libraryCopy, comparator);
+
+		return libraryCopy;
 	}
 
 	/**
@@ -364,5 +371,14 @@ public class LibraryGeneric<Type> {
 			return first.getDueDate().compareTo(second.getDueDate());
 			
 		}
+	}
+	
+	protected class OrderByTitle implements Comparator<LibraryBookGeneric<Type>>{
+		
+		public int compare(LibraryBookGeneric<Type> first, LibraryBookGeneric<Type> second) { 
+			return first.getTitle().compareTo(second.getTitle());
+		
+	}
+		
 	}
 }

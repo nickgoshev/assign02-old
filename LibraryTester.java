@@ -110,7 +110,9 @@ public class LibraryTester {
 		
 		assertNotNull(booksCheckedOut);
 		assertEquals(1, booksCheckedOut.size());
-		assertEquals(new Book(9781843190073L, "Jen Alexander", "The Coming of the Third"), booksCheckedOut.get(0));
+		assertEquals(new Book(9781843190073L, "Jen Alexander", "The Coming of the Third").getIsbn(), booksCheckedOut.get(0).getIsbn());
+		assertEquals(new Book(9781843190073L, "Jen Alexander", "The Coming of the Third").getAuthor(), booksCheckedOut.get(0).getAuthor());
+		assertEquals(new Book(9781843190073L, "Jen Alexander", "The Coming of the Third").getTitle(), booksCheckedOut.get(0).getTitle());
 		assertEquals("Jane Doe", booksCheckedOut.get(0).getHolder());
 	}
 
